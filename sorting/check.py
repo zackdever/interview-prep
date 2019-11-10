@@ -66,39 +66,41 @@ def mergesort(nums):
     
     return merged
 
-def test(expected, *args):
-    # be careful about sort functions sorting in place!
+def test():
+    import random
 
-    # result = bubble(*args)
-    # if result == expected:
-        # print("bubble passed")
-    # else:
-        # print("bubble expected {}, but got {}".format(expected, result))
+    nums = [random.randint(0, 1000) for x in range(1000)]
+    result = bubble(nums)
+    expected = sorted(nums)
+    if result == expected:
+        print("bubble passed")
+    else:
+        print("bubble expected {}, but got {}".format(expected, result))
 
-    # result = insertion(*args)
-    # if result == expected:
-        # print("insertion passed")
-    # else:
-        # print("insertion expected {}, but got {}".format(expected, result))
+    nums = [random.randint(0, 1000) for x in range(1000)]
+    result = insertion(nums)
+    expected = sorted(nums)
+    if result == expected:
+        print("insertion passed")
+    else:
+        print("insertion expected {}, but got {}".format(expected, result))
 
-    result = selection(*args)
+    nums = [random.randint(0, 1000) for x in range(1000)]
+    result = selection(nums)
+    expected = sorted(nums)
     if result == expected:
         print("selection passed")
     else:
         print("selection expected {}, but got {}".format(expected, result))
 
-    # result = mergesort(*args)
-    # if result == expected:
-        # print("mergesort passed")
-    # else:
-        # print("mergesort expected {}, but got {}".format(expected, result))
+    nums = [random.randint(0, 1000) for x in range(1000)]
+    result = mergesort(nums)
+    expected = sorted(nums)
+    if result == expected:
+        print("mergesort passed")
+    else:
+        print("mergesort expected {}, but got {}".format(expected, result))
 
 
 if __name__ == '__main__':
-    import random
-    nums = [random.randint(0, 1000) for x in range(10)]
-    test(sorted(nums), nums)
-    nums = [random.randint(0, 1000) for x in range(100)]
-    test(sorted(nums), nums)
-    nums = [random.randint(0, 1000) for x in range(1000)]
-    test(sorted(nums), nums)
+    test()
