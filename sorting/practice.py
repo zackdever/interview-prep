@@ -4,7 +4,7 @@ def bubble(arr):
     # O(n^2)
     # bubbles up larger elements to the right, forming a sorted right partition
     n = len(arr)
-    for i in range(n - 1):
+    for i in range(n):
         swapped = False
         for j in range(n - 1 - i):
             if arr[j] > arr[j + 1]:
@@ -18,7 +18,7 @@ def insertion(arr):
     # O(n^2)
     # sort of like sorting a deck of cards. starting from the left, if you find
     # a smaller item, keep swapping it back until it's in order
-    for i in range(1, len(arr)):
+    for i in range(len(arr)):
         key = arr[i]
         j = i - 1
         while j >= 0 and key < arr[j]:
@@ -32,7 +32,7 @@ def selection(arr):
     # starting from the left, find the smallest element in the unsorted right
     # partition. if it's smaller, swap it. repeat. this builds a sorted left array
     n = len(arr)
-    for i in range(n - 1):
+    for i in range(n):
         min_idx = i
         for j in range(i + 1, n):
             if arr[j] < arr[min_idx]:
