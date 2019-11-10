@@ -73,6 +73,44 @@ def mergesort(arr):
     merged.extend(right[r:])
     return merged
 
+def _quick_partition(arr, low, high):
+    pivot = arr[high]
+    left = low
+    right = high - 1
+
+    while left <= right:
+        if arr[left] > pivot and arr[right] <= pivot:
+            arr[left], arr[right] = arr[right], arr[left]
+        if arr[left] <= pivot:
+            left += 1
+        if arr[right] > pivot:
+            right -= 1
+
+    # remember to swap the pivot to the correct position
+    arr[left], arr[high] = arr[high], arr[left]
+
+    return left
+
+
+def quick(arr, low=None, high=None):
+    """
+    Best/avg time: O(n*log(n))
+    worst: O(n^2)
+    worst can mostly be avoided by picking a good pivot
+    in place. pick a pivot, swap in place all elements less than pivot to the left,
+    all elements greater than pivot to the right. the pivot is now sorted.
+    recursively quick sort left and right subarrays in place.
+    """
+    if high is None:
+        low, high = 0, len(arr) - 1
+
+    if low < high:
+        p_idx = _quick_partition(arr, low, high)
+        quick(arr, low, p_idx - 1)
+        quick(arr, p_idx + 1, high)
+
+    return arr
+
     
 def test():
     import random
