@@ -1,23 +1,23 @@
 # TODO practice typing these in a google doc
 
 def bubble(arr):
-    # O(n^2)
-    # bubbles up larger elements to the right, forming a sorted right partition
+    # O(n^2) bubbles larger elements up.
+    # can optimize for mostly sorted lists by breaking when we're sorted
     n = len(arr)
     for i in range(n):
         swapped = False
-        for j in range(n - 1 - i):
+        for j in range(n - 1):
             if arr[j] > arr[j + 1]:
-                arr[j], arr[j + 1] = arr[j + 1], arr[j]
                 swapped = True
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
         if not swapped:
             break
     return arr
 
 def insertion(arr):
-    # O(n^2)
-    # sort of like sorting a deck of cards. starting from the left, if you find
-    # a smaller item, keep swapping it back until it's in order
+    # O(n^2) like sorting a deck of cards.
+    # start from left and look at each item. if it's smaller than the item
+    # behind it, keep going back until you find where it belongs
     for i in range(len(arr)):
         key = arr[i]
         j = i - 1
@@ -28,58 +28,52 @@ def insertion(arr):
     return arr
 
 def selection(arr):
-    # O(n^2)
-    # starting from the left, find the smallest element in the unsorted right
-    # partition. if it's smaller, swap it. repeat. this builds a sorted left array
+    # O(n^2) start from the left and look at the entire array.
+    # find the smallest element and move to the left. move index to the
+    # right and repeat
     n = len(arr)
     for i in range(n):
         min_idx = i
-        for j in range(i + 1, n):
+        for j in range(i, n):
             if arr[j] < arr[min_idx]:
                 min_idx = j
         if min_idx != i:
-            arr[i], arr[min_idx] = arr[min_idx], arr[i]
+            arr[min_idx], arr[i] = arr[i], arr[min_idx]
     return arr
 
 def mergesort(arr):
     # O(n*log(n))
-    # recursively split array into halves until each is 0 or 1 element
-    # (by definition these are sorted), and then merge the sorted arrays together
+    # recursively split into subarrays until they are 0 or 1 in length.
+    # these are now all sorted individually. merge them together, sorting
+    # when merging
     n = len(arr)
+
+    # base case
     if n < 2:
         return arr
 
-    half = n // 2
-    merged = [0] *  n # or [] and use .append instead of i
-    # merged = []
-    left = mergesort(arr[:half])
-    right = mergesort(arr[half:])
-    l, r, i = 0, 0, 0
-    # l, r = 0, 0
+    # recursively split
+    middle = n // 2
+    left = mergesort(arr[:middle])
+    right = mergesort(arr[middle:])
 
+    # merge
+    l, r = 0, 0
+    merged = []
     while l < len(left) and r < len(right):
         if left[l] < right[r]:
-            merged[i] = left[l]
-            # merged.append(left[l])
+            merged.append(left[l])
             l += 1
         else:
-            merged[i] = right[r]
-            # merged.append(right[r])
+            merged.append(right[r])
             r += 1
-        i += 1
 
-    for x in left[l:]:
-        merged[i] = x
-        i += 1
-
-    for x in right[r:]:
-        merged[i] = x
-        i += 1
-    # merged.extend(left[l:])
-    # merged.extend(right[r:])
-
+    # add any remaining items
+    merged.extend(left[l:])
+    merged.extend(right[r:])
     return merged
 
+    
 def test():
     import random
 
@@ -118,6 +112,15 @@ def test():
     else:
         print("mergesort failed!")
         # print("mergesort expected {}, but got {}".format(expected, result))
+
+    nums = [random.randint(0, 1000) for x in range(1000)]
+    result = quick(nums)
+    expected = sorted(nums)
+    if result == expected:
+        print("quick passed")
+    else:
+        print("quick failed!")
+        # print("quick expected {}, but got {}".format(expected, result))
 
 
 if __name__ == '__main__':
