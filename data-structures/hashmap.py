@@ -1,5 +1,8 @@
 """
-Simple hashmap using python arrays
+Simple hashmap using python arrays.
+A couple improvements it could use:
+    - store list of all keys for __repr__ printing
+    - automatically resize
 """
 
 class HashMap:
