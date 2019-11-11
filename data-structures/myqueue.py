@@ -27,11 +27,10 @@ class Queue:
         return item
 
     def __repr__(self):
-        if not self.head:
-            return str([]) 
         items = []
-        item = self.head
-        while item:
-            items.append(item.data)
-            item = item.next
-        return str(items)
+        if self.head:
+            item = self.head
+            while item:
+                items.append(item.data)
+                item = item.next
+        return "H {} T".format(str(items))
