@@ -1,4 +1,8 @@
+import queue
+
+
 class Node:
+    """simple binary search tree. not balanced"""
     def __init__(self, data):
         self.data = data
         self.left = None
@@ -21,6 +25,19 @@ class Node:
                 (self.left and self.left(contains(data))) or
                 (self.right and self.right(contains(data))))
 
+    ### BFS
+    def print_breadth_first(self):
+        q = queue.SimpleQueue()
+        q.put(self)
+        while not q.empty():
+            node = q.get()
+            print(node.data)
+            if node.left:
+                q.put(node.left)
+            if node.right:
+                q.put(node.right)
+
+    ### DFS prints
     def print_in_order(self):
         if self.left:
             self.left.print_in_order()
@@ -41,6 +58,7 @@ class Node:
         if self.right:
             self.right.print_post_order()
         print(self.data)
+
 
     def __repr__(self):
         """a bad repr, but useful for quick poking in repl"""
